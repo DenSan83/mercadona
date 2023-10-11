@@ -1,15 +1,15 @@
 package com.devdensan.mercadona;
 
-import com.devdensan.mercadona.bussiness.Category;
-import com.devdensan.mercadona.bussiness.Product;
-import com.devdensan.mercadona.bussiness.Promotion;
+import com.devdensan.mercadona.model.Category;
+import com.devdensan.mercadona.model.Product;
+import com.devdensan.mercadona.model.Promotion;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BussinessLayerAppTests {
+class ModelLayerAppTests {
 
 	@Test
 	void createCategory() {

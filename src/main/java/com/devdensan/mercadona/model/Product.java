@@ -1,4 +1,4 @@
-package com.devdensan.mercadona.bussiness;
+package com.devdensan.mercadona.model;
 
 public class Product {
     private int product_id;
