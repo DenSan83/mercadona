@@ -15,14 +15,15 @@ class ModelLayerAppTests {
 	void createCategory() {
 		// given
 		String categoryName = "Boissons";
+		String slug = "boissons";
 
 		// when
-		Category category = new Category(categoryName);
+		Category category = new Category(categoryName, slug);
 		String result = category.toString();
 
 		// then
-		String expected = "Category{category_name='Boissons'}";
-		assertEquals(result, expected);
+		String expected = "Category{categoryId=0, categoryName='Boissons', slug='boissons'}";
+		assertEquals(expected, result);
 
 	}
 
@@ -33,21 +34,21 @@ class ModelLayerAppTests {
 		String description = "Bouteille 750ml";
 		String image = "lait-bonnelait.png";
 		float price = 9.95f;
-		Category boissons = new Category("Boissons");
+		Category boissons = new Category("Boissons", "boissons");
 
 		// when
 		Product product = new Product(name, description, image, price, boissons, null);
 		String result = product.toString();
 
 		// then
-		String expected = "Product{" +
-				"product_name='Lait Bonnelait'" +
+		String expected = "Product{productId=0" +
+				", productName='Lait Bonnelait'" +
 				", description='Bouteille 750ml'" +
 				", image='lait-bonnelait.png'" +
 				", price=9.95" +
-				", category=Category{category_name='Boissons'}" +
+				", category=Category{categoryId=0, categoryName='Boissons', slug='boissons'}" +
 				", promotion=null}";
-		assertEquals(result, expected);
+		assertEquals(expected, result);
 	}
 
 	@Test
@@ -62,8 +63,8 @@ class ModelLayerAppTests {
 		String result = promotion.toString();
 
 		// then
-		String expected = "Promotion{discount_percentage=10"+
-				", start_date=2023-01-01, end_date=2023-12-31}";
+		String expected = "Promotion{promotionId=0, discountPercentage=10"+
+				", startDate=2023-01-01, endDate=2023-12-31}";
 		assertEquals(expected, result);
 	}
 

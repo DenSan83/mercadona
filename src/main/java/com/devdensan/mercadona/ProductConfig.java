@@ -16,8 +16,8 @@ public class ProductConfig {
     @Bean
     CommandLineRunner commandLineRunner(CategoryRepository categoryRepository, ProductRepository productRepository) {
         return args -> {
-            Category boissons = new Category("Boissons");
-            Category gateaux = new Category("Gâteaux");
+            Category boissons = new Category("Boissons", "boissons");
+            Category gateaux = new Category("Gâteaux", "gateaux");
             Product p1 = new Product("Lait Bonnelait", "Bouteille 750ml",
                     "lait-bonnelait.png", 1.95f, boissons, null);
             Product p2 = new Product("Bjorg", "Boisson biologique à base d'amandes, sans sucres, Stérilisée UHT - la brique de 1l",

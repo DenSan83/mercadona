@@ -13,16 +13,21 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
+    @Column(name = "slug")
+    private String slug;
+
     public Category() {
     }
 
-    public Category(String categoryName) {
+    public Category(String categoryName, String slug) {
         this.categoryName = categoryName;
+        this.slug = slug;
     }
 
-    public Category(int categoryId, String categoryName) {
+    public Category(int categoryId, String categoryName, String slug) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.slug = slug;
     }
 
     public int getCategoryId() {
@@ -41,11 +46,21 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
+                ", slug='" + slug + '\'' +
                 '}';
     }
 }
+
