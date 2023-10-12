@@ -8,10 +8,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", updatable = false)
-    private int product_id;
+    private int productId;
 
     @Column(name = "product_name")
-    private String product_name;
+    private String productName;
 
     @Column(name = "description")
     private String description;
@@ -33,8 +33,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(String product_name, String description, String image, float price, Category category, Promotion promotion) {
-        this.product_name = product_name;
+    public Product(String productName, String description, String image, float price, Category category, Promotion promotion) {
+        this.productName = productName;
         this.description = description;
         this.image = image;
         this.price = price;
@@ -42,9 +42,9 @@ public class Product {
         this.promotion = promotion;
     }
 
-    public Product(int product_id, String product_name, String description, String image, float price, Category category, Promotion promotion) {
-        this.product_id = product_id;
-        this.product_name = product_name;
+    public Product(int productId, String productName, String description, String image, float price, Category category, Promotion promotion) {
+        this.productId = productId;
+        this.productName = productName;
         this.description = description;
         this.image = image;
         this.price = price;
@@ -52,20 +52,20 @@ public class Product {
         this.promotion = promotion;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setProductId(int product_id) {
+        this.productId = product_id;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String product_name) {
+        this.productName = product_name;
     }
 
     public String getDescription() {
@@ -111,7 +111,8 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "product_name='" + product_name + '\'' +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", price=" + price +
