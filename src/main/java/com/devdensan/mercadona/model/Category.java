@@ -1,7 +1,16 @@
 package com.devdensan.mercadona.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "categories")
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id", updatable = false)
     private int category_id;
+
+    @Column(name = "category_name")
     private String category_name;
 
     public Category() {

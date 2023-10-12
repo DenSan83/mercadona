@@ -1,13 +1,34 @@
 package com.devdensan.mercadona.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id", updatable = false)
     private int product_id;
+
+    @Column(name = "product_name")
     private String product_name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "image")
     private String image;
+
+    @Column(name = "price")
     private float price;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
-    private Promotion promotion;
+
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "promotion_id")
+    private Promotion promotion; // Can be null
 
     public Product() {
     }
