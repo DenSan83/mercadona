@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class ModelLayerAppTests {
+class ProductModelAppTests {
 
 	@Autowired
 	private MockMvc mockMvc;
