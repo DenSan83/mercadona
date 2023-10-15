@@ -1,11 +1,7 @@
 package com.devdensan.mercadona;
 
-import com.devdensan.mercadona.model.Category;
 import com.devdensan.mercadona.model.Role;
 import com.devdensan.mercadona.model.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
