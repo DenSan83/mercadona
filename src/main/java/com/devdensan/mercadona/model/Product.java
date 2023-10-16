@@ -2,6 +2,10 @@ package com.devdensan.mercadona.model;
 
 import jakarta.persistence.*;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -80,12 +84,25 @@ public class Product {
         return image;
     }
 
+    public String getImagePath() {
+        Path path = Paths.get("src/main/resources/static/images/products/" + image);
+        String imagePath = "/images/products/" + image;
+        if (!Files.exists(path)) {
+            imagePath = "/images/app/not-found.png";
+        }
+        return imagePath;
+    }
+
     public void setImage(String image) {
         this.image = image;
     }
 
     public float getPrice() {
         return price;
+    }
+
+    public String getFormattedPrice() {
+        return String.format("%.2f €", price);
     }
 
     public void setPrice(float price) {
@@ -102,6 +119,15 @@ public class Product {
 
     public Promotion getPromotion() {
         return promotion;
+    }
+
+    public String getPriceAfterPromotion() {
+        if (promotion == null) {
+            return null;
+        } else {
+            float result = price - (price * promotion.getDiscountPercentage() / 100.0f);
+            return String.format("%.2f €", result);
+        }
     }
 
     public void setPromotion(Promotion promotion) {

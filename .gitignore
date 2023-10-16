@@ -34,3 +34,6 @@ build/
 
 ### Database credentials ###
 src/main/resources/db-connect.properties
+
+### Products image folder ###
+src/main/resources/static/images/products

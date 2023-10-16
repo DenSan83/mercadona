@@ -1,0 +1,28 @@
+<nav class="py-2 bg-body-tertiary d-md-none border-bottom">
+  <a data-bs-toggle="offcanvas" href="#categoryCanvas" role="button" aria-controls="categoryCanvas">
+    <div class="container d-flex flex-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list me-2" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+      <h4 class="categories-filter-title">Catégories</h4>
+    </div>
+  </a>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="categoryCanvas" aria-labelledby="categoryCanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="categoryCanvasLabel">Catégories</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="mt-5 p-2">
+        <ul id="categoriesResponsive">
+          <li data-category="0">
+            <a class="btn btn-light w-100" href="">Tous les Produits</a>
+          </li>
+          <li th:each="category : ${categories}" th:attr="data-category=${category.getCategoryId()}">
+            <a class="btn btn-light w-100"  th:text="${category.getCategoryName()}"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

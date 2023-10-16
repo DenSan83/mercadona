@@ -7,7 +7,9 @@ import com.devdensan.mercadona.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -25,15 +27,14 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getProductsByCategory(String categoryName) {
-        Category category = this.categoryRepository.findCategoryByName(categoryName);
+    public List<Product> getProductsByCategoryId(int categoryId) {
+        boolean categoryExists = this.categoryRepository.existsByCategoryId(categoryId);
 
-        if (category == null) {
-            return this.getAllProducts();
-        } else {
+        if (categoryExists) {
+            Optional<Category> category = this.categoryRepository.findById(categoryId);
             return productRepository.findByCategory(category);
         }
-
+        return new ArrayList<>();
     }
 
 }

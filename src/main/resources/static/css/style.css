@@ -1,0 +1,74 @@
+/* Graphic Chart colors */
+:root {
+    --green: #00ab61;
+    --yellow: #fcb831;
+}
+
+body {
+    font-family: "Open sans", sans-serif;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--green);
+}
+
+.categories-filter-title {
+    font-weight: 700;
+    color: var(--green);
+}
+
+.page-title {
+    font-weight: 700;
+    color: var(--green);
+}
+
+.product-container {
+     .card {
+         max-width: 208px;
+         border-color: var(--yellow);
+    }
+     .title {
+         height: 63px;
+         display: block;
+     }
+     .description {
+         height: 88px;
+         font-size: 14px;
+         display: block;
+     }
+}
+
+@media screen and (min-width: 778px) and (max-width: 992px) {
+    .product-container span.description {
+        height: 130px;
+    }
+}
+
+.promo-tag {
+    position: absolute;
+    background-color: var(--yellow);
+    padding: 4px;
+    border-radius: 4px 0;
+    font-weight: 700;
+}
+.promo-valid {
+    position: absolute;
+    background-color: var(--yellow);
+    font-size: 12px;
+    font-weight: 300;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.price.promo-price {
+    background-color: var(--yellow);
+    padding: 0 3px;
+    border-radius: 4px;
+}
+.before-price {
+    font-weight: 400;
+    font-size: 0.7em;
+    text-decoration: line-through;
+}

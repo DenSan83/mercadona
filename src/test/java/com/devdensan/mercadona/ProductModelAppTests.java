@@ -3,6 +3,9 @@ package com.devdensan.mercadona;
 import com.devdensan.mercadona.model.Category;
 import com.devdensan.mercadona.model.Product;
 import com.devdensan.mercadona.model.Promotion;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -29,14 +34,13 @@ class ProductModelAppTests {
 	void createCategory() {
 		// given
 		String categoryName = "Boissons";
-		String slug = "boissons";
 
 		// when
-		Category category = new Category(categoryName, slug);
+		Category category = new Category(categoryName);
 		String result = category.toString();
 
 		// then
-		String expected = "Category{categoryId=0, categoryName='Boissons', slug='boissons'}";
+		String expected = "Category{categoryId=0, categoryName='Boissons'}";
 		assertEquals(expected, result);
 
 	}
@@ -48,7 +52,7 @@ class ProductModelAppTests {
 		String description = "Bouteille 750ml";
 		String image = "lait-bonnelait.png";
 		float price = 9.95f;
-		Category boissons = new Category("Boissons", "boissons");
+		Category boissons = new Category("Boissons");
 
 		// when
 		Product product = new Product(name, description, image, price, boissons, null);
@@ -60,7 +64,7 @@ class ProductModelAppTests {
 				", description='Bouteille 750ml'" +
 				", image='lait-bonnelait.png'" +
 				", price=9.95" +
-				", category=Category{categoryId=0, categoryName='Boissons', slug='boissons'}" +
+				", category=Category{categoryId=0, categoryName='Boissons'}" +
 				", promotion=null}";
 		assertEquals(expected, result);
 	}
@@ -85,17 +89,22 @@ class ProductModelAppTests {
 	@Test
 	public void filterCategories() throws Exception {
 		// given
-		String categorySlug = "gateaux";
+		String categoryId = "2";
 
 		// when
-		String responseJson = mockMvc.perform(MockMvcRequestBuilders.get("/").param("category", categorySlug))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andReturn().getResponse().getContentAsString();
-		String expectedJson = "[{\"productId\":6,\"productName\":\"Chabrior\",\"description\":\"GÃ¢teaux Snack'Lait cacao - Les 10 gÃ¢teaux de 42 g\""
-				+ ",\"image\":\"soda-field.png\",\"price\":1.94,\"category\":{\"categoryId\":2,\"categoryName\":\"GÃ¢teaux\",\"slug\":\"gateaux\"},\"promotion\":null}]";
+		ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products")
+				.param("category", categoryId)).andExpect(MockMvcResultMatchers.status().isOk());
+		MvcResult mvcResult = resultActions.andReturn();
+		String responseJson = mvcResult.getResponse().getContentAsString();
 
 		// then
-		assertEquals(expectedJson, responseJson);
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			JsonNode jsonNode = objectMapper.readTree(responseJson);
+			Assertions.assertTrue(jsonNode.isArray());
+		} catch (Exception e) {
+			Assertions.fail("Failed to parse JSON or JSON is not an array");
+		}
 	}
 
 

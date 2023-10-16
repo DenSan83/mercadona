@@ -1,0 +1,12 @@
+<header class="d-flex flex-wrap align-items-center justify-content-between p-3 border-bottom">
+  <div class="col-md-8 mb-2 mb-md-0">
+    <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+      <img th:src="@{/images/app/logo-mercadona.svg}" alt="Logo">
+    </a>
+  </div>
+
+  <div class="col-md-4 text-end" th:if="${userLoggedIn != null}">
+    <span th:text="${userName}"></span>
+    <!-- TODO: logout button-->
+  </div>
+</header>
