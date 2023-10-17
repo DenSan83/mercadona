@@ -4,6 +4,7 @@
     --yellow: #fcb831;
 }
 
+/* General CSS */
 body {
     font-family: "Open sans", sans-serif;
 }
@@ -14,6 +15,7 @@ nav a {
     color: var(--green);
 }
 
+/* Categories */
 .categories-filter-title {
     font-weight: 700;
     color: var(--green);
@@ -24,6 +26,7 @@ nav a {
     color: var(--green);
 }
 
+/* Products */
 .product-container {
      .card {
          max-width: 208px;
@@ -46,6 +49,7 @@ nav a {
     }
 }
 
+/* Promotions */
 .promo-tag {
     position: absolute;
     background-color: var(--yellow);
@@ -71,4 +75,5 @@ nav a {
     font-weight: 400;
     font-size: 0.7em;
     text-decoration: line-through;
+    color: red;
 }

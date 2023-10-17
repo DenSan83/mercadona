@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let getCategoryContent = (e, elm) => {
         e.preventDefault();
         let categoryId = elm.getAttribute('data-category');
-        console.log(categoryId);
         let apiUrl = '/ajax-products';
         if (categoryId !== '0') {
             apiUrl += '?category=' + categoryId;
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Ajax call on categories from responsive menu
     let categoryListResponsive = document.getElementById('categoriesResponsive');
-    if (categoryListResponsive) { // Asegúrate de que el elemento exista
+    if (categoryListResponsive) {
         let categoriesResponsive = categoryListResponsive.getElementsByTagName('li');
         for (let i = 0; i < categoriesResponsive.length; i++) {
             categoriesResponsive[i].addEventListener('click', e => getCategoryContent(e, categoriesResponsive[i]));
