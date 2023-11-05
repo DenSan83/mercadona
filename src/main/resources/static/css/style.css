@@ -16,9 +16,27 @@ nav a {
 }
 
 /* Categories */
+.categories-box {
+    margin-top: 61px;
+}
+
 .categories-filter-title {
     font-weight: 700;
     color: var(--green);
+    text-align: center;
+}
+
+#categoriesAside {
+    width: 160px;
+}
+
+#categoriesAside, #categoriesResponsive {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#categoriesAside li, #categoriesResponsive li {
+    margin-bottom: 3px;
 }
 
 .page-title {

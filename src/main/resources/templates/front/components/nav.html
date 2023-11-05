@@ -16,10 +16,10 @@
       <div class="mt-5 p-2">
         <ul id="categoriesResponsive">
           <li data-category="0">
-            <a class="btn btn-light w-100" href="">Tous les Produits</a>
+            <a class="btn btn-light w-100" href="" data-bs-dismiss="offcanvas">Tous les Produits</a>
           </li>
           <li th:each="category : ${categories}" th:attr="data-category=${category.getCategoryId()}">
-            <a class="btn btn-light w-100"  th:text="${category.getCategoryName()}"></a>
+            <a class="btn btn-light w-100"  th:text="${category.getCategoryName()}" data-bs-dismiss="offcanvas"></a>
           </li>
         </ul>
       </div>
