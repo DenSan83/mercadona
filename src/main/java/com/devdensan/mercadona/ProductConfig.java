@@ -21,7 +21,7 @@ public class ProductConfig {
         return args -> {
             Category boissons = new Category("Boissons");
             Category gateaux = new Category("Gâteaux");
-            Promotion promo1 = new Promotion(1,10, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+            Promotion promo1 = new Promotion(10, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
             Product p1 = new Product("Lait Bonnelait", "Bouteille 750ml",
                     "lait-bonnelait.png", 1.95f, boissons, null);
             Product p2 = new Product("Bjorg", "Boisson biologique à base d'amandes, sans sucres, Stérilisée UHT",
