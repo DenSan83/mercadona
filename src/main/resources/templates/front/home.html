@@ -10,8 +10,8 @@
     </head>
     <body>
         <!-- Page header -->
-        <header th:replace="front/components/header"></header>
-        <nav th:replace="/front/components/nav"></nav>
+        <header th:replace="~{front/components/header}"></header>
+        <nav th:replace="~{front/components/nav}"></nav>
 
         <!-- Container -->
         <div class="container-xl">
@@ -33,7 +33,7 @@
                 <main class="py-3 w-100">
                     <div id="product-container"
                          class="product-container row px-3 mt-md-4"
-                         th:insert="front/components/products">
+                         th:insert="~{front/components/products}">
                     </div>
                 </main>
             </div>
