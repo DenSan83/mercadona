@@ -53,9 +53,8 @@ public class HomeController {
         if (connectedUser == null) {
             model.addAttribute("userLoggedIn", false);
         } else {
-            String userName = connectedUser.getUserName();
             model.addAttribute("userLoggedIn", true);
-            model.addAttribute("userName", userName);
+            model.addAttribute("connectedUser", connectedUser);
         }
         return "front/home";
     }

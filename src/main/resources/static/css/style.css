@@ -15,6 +15,10 @@ nav a {
     color: var(--green);
 }
 
+.username {
+    text-transform: capitalize;
+}
+
 /* Categories */
 .categories-box {
     margin-top: 61px;

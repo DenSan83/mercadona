@@ -5,8 +5,17 @@
     </a>
   </div>
 
-  <div class="col-md-4 text-end" th:if="${userLoggedIn != null}">
-    <span th:text="${userName}"></span>
-    <!-- TODO: logout button-->
+  <div class="col-md-4 text-end" th:if="${userLoggedIn}">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="username" th:text="${connectedUser.userName}"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <th:block th:if="${connectedUser.role.roleName == 'ADMIN'}">
+          <li><a class="dropdown-item" th:href="@{/admin}">Gestion Administrateur</a></li>
+        </th:block>
+        <li><a class="dropdown-item" th:href="@{/logout}">Déconnexion</a></li>
+      </ul>
+    </div>
   </div>
 </header>
