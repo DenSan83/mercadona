@@ -1,0 +1,28 @@
+html, body {
+    height: 100vh;
+}
+@media (768px <= width) {
+    .container-fluid, .holder {
+        height: calc(100vh - 60px);
+    }
+}
+
+.username {
+    text-transform: capitalize;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+    display: block !important;
+}

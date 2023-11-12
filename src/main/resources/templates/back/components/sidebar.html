@@ -1,0 +1,84 @@
+<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary h-100">
+  <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="sidebarMenuLabel">
+        <img th:src="@{/images/app/logo-mercadona.svg}" alt="Logo">
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+      <div class="ps-3 mt-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="me-1 bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+        <span class="username" th:text="${userName}"></span>
+      </div>
+
+      <hr class="my-3">
+      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+        <span>Gestion administrateur</span>
+      </h6>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a th:href="@{/admin}"
+             class="nav-link d-flex align-items-center gap-2"
+             th:classappend="${page == 'dashboard' ? 'bg-secondary text-white' : 'link-success'}">
+            <svg class="bi"><use xlink:href="#graph-up"/></svg>
+            Tableau de bord
+          </a>
+        </li>
+        <li class="nav-item">
+          <a th:href="@{/admin/products}"
+             class="nav-link d-flex align-items-center gap-2"
+             th:classappend="${page == 'products' ? 'bg-secondary text-white' : 'link-success'}">
+            <svg class="bi"><use xlink:href="#cart"/></svg>
+            Produits
+          </a>
+        </li>
+        <li class="nav-item">
+          <a th:href="@{/admin/categories}"
+             class="nav-link d-flex align-items-center gap-2"
+             th:classappend="${page == 'categories' ? 'bg-secondary text-white' : 'link-success'}">
+            <svg class="bi"><use xlink:href="#puzzle"/></svg>
+            Catégories
+          </a>
+        </li>
+        <li class="nav-item">
+          <a th:href="@{/admin/users}"
+             class="nav-link d-flex align-items-center gap-2"
+             th:classappend="${page == 'users' ? 'bg-secondary text-white' : 'link-success'}">
+            <svg class="bi"><use xlink:href="#people"/></svg>
+            Utilisateurs
+          </a>
+        </li>
+      </ul>
+
+      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+        <span>Actions</span>
+      </h6>
+      <ul class="nav flex-column mb-auto">
+        <li class="nav-item">
+          <span class="d-flex align-items-center gap-2">
+            <a class="nav-link link-success d-inline pe-0" th:href="@{/}">
+              <svg class="bi"><use xlink:href="#house-fill"/></svg>
+              Catalogue
+            </a>
+            <a class="nav-link link-success d-inline ps-0" th:href="@{/}" target="_blank">
+              <svg class="bi"><use xlink:href="#box-arrow-up"/></svg>
+            </a>
+          </span>
+        </li>
+        <li class="nav-item">
+          <form th:action="@{/logout}" method="post">
+            <button class="nav-link link-success d-flex align-items-center gap-2" type="submit">
+              <svg class="bi"><use xlink:href="#door-closed"/></svg>
+              Déconnexion
+            </button>
+          </form>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
