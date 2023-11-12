@@ -1,0 +1,17 @@
+body {
+    height: 100vh;
+}
+.form-signin {
+    max-width: 330px;
+    padding: 1rem;
+}
+.logo {
+    width: 295px;
+}
+.connect-title {
+    color: #00ab61;
+}
+.submit-btn {
+    background-color: #00ab61;
+    color: #fff;
+}
