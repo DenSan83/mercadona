@@ -9,15 +9,23 @@ if (toastElList.length > 0) {
     }, 5000);
 }
 
-// Delete modal
+// Category delete modal
 const categoryIdInput = document.getElementById('categoryIdInput');
 const deleteModal = document.getElementById('deleteModal');
 deleteModal.addEventListener('show.bs.modal', event => {
-    const button = event.relatedTarget; console.log(button)
-    console.log(button.getAttribute('data-category-id'))
+    const button = event.relatedTarget;
     categoryIdInput.value = button.getAttribute('data-category-id');
-    console.log(categoryIdInput)
 });
 deleteModal.addEventListener('hide.bs.modal', () => {
     categoryIdInput.value = '';
+});
+
+// Product delete modal
+const productIdInput = document.getElementById('productIdInput');
+deleteModal.addEventListener('show.bs.modal', event => {
+    const button = event.relatedTarget;
+    productIdInput.value = button.getAttribute('data-product-id');
+});
+deleteModal.addEventListener('hide.bs.modal', () => {
+    productIdInput.value = '';
 });

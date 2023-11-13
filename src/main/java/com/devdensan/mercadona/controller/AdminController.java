@@ -3,6 +3,7 @@ package com.devdensan.mercadona.controller;
 import com.devdensan.mercadona.auth.AuthenticationService;
 import com.devdensan.mercadona.model.User;
 import com.devdensan.mercadona.service.CategoryService;
+import com.devdensan.mercadona.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +15,12 @@ public class AdminController {
 
     private final AuthenticationService authenticationService;
     private final CategoryService categoryService;
+    private final ProductService productService;
 
-    public AdminController(AuthenticationService authenticationService, CategoryService categoryService) {
+    public AdminController(AuthenticationService authenticationService, CategoryService categoryService, ProductService productService) {
         this.authenticationService = authenticationService;
         this.categoryService = categoryService;
+        this.productService = productService;
     }
 
     @GetMapping
@@ -42,6 +45,7 @@ public class AdminController {
 
         // Page data
         model.addAttribute("page", "products");
+        model.addAttribute("products", productService.getAllProducts());
 
         return "back/components/template";
     }

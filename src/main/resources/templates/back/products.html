@@ -1,34 +1,71 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Produits</h1>
+  <div class="btn-toolbar mb-2 mb-md-0 ms-3">
+    <a class="btn btn-sm btn-secondary" th:href="@{/admin/product/new}">
+      <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+      Ajouter
+    </a>
+  </div>
 </div>
 
 <div class="table-responsive small">
   <table class="table table-striped table-sm">
     <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Header</th>
-      <th scope="col">Header</th>
-      <th scope="col">Header</th>
-      <th scope="col">Header</th>
-    </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Description</th>
+        <th scope="col">Image</th>
+        <th scope="col">Prix normal</th>
+        <th scope="col">Prix promo</th>
+        <th scope="col">Actions</th>
+      </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1,001</td>
-      <td>random</td>
-      <td>data</td>
-      <td>placeholder</td>
-      <td>text</td>
-    </tr>
-    <tr>
-      <td>1,002</td>
-      <td>placeholder</td>
-      <td>irrelevant</td>
-      <td>visual</td>
-      <td>layout</td>
-    </tr>
-
+      <tr th:each="product : ${products}">
+        <td th:text="${product.getProductId()}"></td>
+        <td th:text="${product.getProductName()}"></td>
+        <td th:text="${product.getCategory().getCategoryName()}"></td>
+        <td th:text="${product.getDescription()}"></td>
+        <td th:text="${product.getImage()}"></td>
+        <td class="no-wrap" th:text="${product.getFormattedPrice()}"></td>
+        <td>
+          <a th:text="${product.getPriceAfterPromotion()}" href="#"></a>
+        </td>
+        <td>
+          <a th:href="@{/admin/product/edit/{productId}(productId=${product.getProductId()})}" class="btn btn-sm btn-success m-1">
+            <svg class="bi"><use xlink:href="#pencil-edit"/></svg>
+            Modifier
+          </a>
+          <button type="button" class="btn btn-sm btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-product-id="${product.productId}">
+            <svg class="bi"><use xlink:href="#trash"/></svg>
+            Supprimer
+          </button>
+        </td>
+      </tr>
     </tbody>
   </table>
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Supprimer produit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer ce produit ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <form th:action="@{/admin/product/delete}" method="post">
+          <input type="hidden" name="product-id" id="productIdInput">
+          <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Supprimer</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
