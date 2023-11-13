@@ -26,3 +26,8 @@ html, body {
 .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
 }
+
+.toast{
+    position: absolute;
+    right: 10px;
+}

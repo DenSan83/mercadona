@@ -18,6 +18,13 @@
                 <div th:replace="~{back/components/sidebar}"></div>
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="toast show align-items-center float-end mt-3" th:classappend="${'bg-' + message.type}" role="alert" aria-live="assertive" aria-atomic="true" th:if="${message}">
+                        <div class="d-flex">
+                            <div class="toast-body text-white" th:text="${message.text}"></div>
+                            <button type="button" class="btn-close me-2 m-auto bg-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+
                     <th:block th:switch="${page}">
                         <th:block th:case="'dashboard'">
                             <div th:replace="~{back/dashboard}"></div>
@@ -28,6 +35,9 @@
                         <th:block th:case="'categories'">
                             <div th:replace="~{back/categories}"></div>
                         </th:block>
+                        <th:block th:case="'category-form'">
+                            <div th:replace="~{back/forms/category-form}"></div>
+                        </th:block>
                         <th:block th:case="'users'">
                             <div th:replace="~{back/users}"></div>
                         </th:block>
@@ -37,6 +47,7 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="/js/admin.js"></script>
 
     </body>
 </html>

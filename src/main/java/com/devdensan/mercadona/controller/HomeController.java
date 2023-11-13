@@ -45,7 +45,7 @@ public class HomeController {
         }
 
         // Category List
-        List<Category> categories = categoryService.getAllCategories();
+        List<Category> categories = categoryService.getAllCategoriesById();
         model.addAttribute("categories", categories);
 
         // Check if any user is connected

@@ -1,0 +1,11 @@
+<div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Nouvelle Catégorie</h1>
+</div>
+
+<form th:action="${category == null ? '/admin/category/new' : '/admin/category/edit/' + category.categoryId}" method="post">
+    <div class="mb-3">
+      <label for="cat-name" class="form-label">Nom de la catégorie</label>
+      <input type="text" class="form-control" id="cat-name" name="category-name" th:value="${category != null ? category.categoryName : ''}">
+    </div>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+</form>
