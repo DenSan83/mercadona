@@ -38,9 +38,17 @@ public class AdminCategoryController {
 
     @PostMapping("new")
     public String categoryAdd(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        Category cat = service.newCategory(request);
-
+        String categoryName = request.getParameter("category-name");
         Map<String, String> message = new HashMap<>();
+        if (categoryName.equals("")) {
+            message.put("type", "danger");
+            message.put("text", "Erreur : veuillez renseigner un nom de catégorie");
+
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/admin/categories";
+        }
+
+        Category cat = service.newCategory(request);
         if (cat == null) {
             message.put("type", "danger");
             message.put("text", "Erreur sur l'ajout de la catégorie");
