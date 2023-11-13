@@ -89,14 +89,25 @@ public class AdminCategoryController {
 
     @PostMapping("/delete")
     public String deleteCategory(@RequestParam("category-id") int categoryId, RedirectAttributes redirectAttributes) {
+        Map<String, String> message = new HashMap<>();
+
+        // Verify if exists
+        boolean categoryExists = service.existsByCategoryId(categoryId);
+        if (!categoryExists) {
+            message.put("type", "danger");
+            message.put("text", "Catégorie non trouvée ou inéxistante.");
+
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/admin/categories";
+        }
+
         // Verify if empty
         Map<Integer, Integer> categories =  service.articlesByCategoryId();
         Integer categoryCount = categories.get(categoryId);
 
-        Map<String, String> message = new HashMap<>();
         if (categoryCount != 0) {
             message.put("type", "danger");
-            message.put("text", "La catégorie a encore des produits. Veuillez les retirer avant de supprimer la catégorie");
+            message.put("text", "La catégorie a encore des produits. Veuillez les retirer avant de supprimer la catégorie.");
         } else {
 
             boolean deleted = service.deleteCategory(categoryId);
