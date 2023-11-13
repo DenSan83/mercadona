@@ -53,8 +53,26 @@ public class AdminProductController {
             return "redirect:/admin/products";
         }
 
-        Product product = service.newProduct(request);
+        // Check parameters
+        String newName = request.getParameter("product-name");
+        String description = request.getParameter("description");
+        Category category = categoryService.getCategoryById(categoryId);
+        float price;
+        try {
+            price = Float.parseFloat(request.getParameter("price"));
+        } catch (NumberFormatException e) {
+            price = 0;
+        }
 
+        if (newName.equals("") || description.equals("") || price == 0) {
+            message.put("type", "danger");
+            message.put("text", "Erreur : Veuillez remplir tous les champs");
+
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/admin/products";
+        }
+
+        Product product = service.newProduct(request);
         if (product == null) {
             message.put("type", "danger");
             message.put("text", "Erreur sur l'ajout du produit");
@@ -101,12 +119,26 @@ public class AdminProductController {
             return "redirect:/admin/products";
         }
 
-        // Get parameters and edit
+        // Check parameters
         String newName = request.getParameter("product-name");
         String description = request.getParameter("description");
         Category category = categoryService.getCategoryById(categoryId);
-        float price = Float.parseFloat(request.getParameter("price"));
+        float price;
+        try {
+            price = Float.parseFloat(request.getParameter("price"));
+        } catch (NumberFormatException e) {
+            price = 0;
+        }
 
+        if (newName.equals("") || description.equals("") || price == 0) {
+            message.put("type", "danger");
+            message.put("text", "Erreur : Veuillez remplir tous les champs");
+
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/admin/products";
+        }
+
+        // Product edition
         Product editedProduct = service.editProduct(productId, newName, description, category, price);
         if (editedProduct == null) {
             message.put("type", "danger");
