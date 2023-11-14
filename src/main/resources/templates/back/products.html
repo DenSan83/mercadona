@@ -18,8 +18,8 @@
         <th scope="col">Description</th>
         <th scope="col">Image</th>
         <th scope="col">Prix normal</th>
-        <th scope="col">Prix promo</th>
-        <th scope="col">Actions</th>
+        <th scope="col" class="text-center">Promotion</th>
+        <th scope="col">Modifier / Supprimer</th>
       </tr>
     </thead>
     <tbody>
@@ -30,18 +30,26 @@
         <td th:text="${product.getDescription()}"></td>
         <td th:text="${product.getImage()}"></td>
         <td class="no-wrap" th:text="${product.getFormattedPrice()}"></td>
-        <td>
-          <a th:text="${product.getPriceAfterPromotion()}" href="#"></a>
+        <td class="text-center">
+          <span th:text="${product.getPriceAfterPromotion()}"></span>
+          <th:block th:if="${product.getPromotion() != null}">
+            (<span th:text="${product.getPromotion().getDiscountPercentage()}"></span>%)
+            <br>
+          </th:block>
+          <a th:href="@{/admin/promotion/product-id/{productId}(productId=${product.getProductId()})}" class="btn btn-sm btn-warning m-1">
+            <svg class="bi"><use xlink:href="#tag"/></svg>
+            Promotion
+          </a>
         </td>
         <td>
-          <a th:href="@{/admin/product/edit/{productId}(productId=${product.getProductId()})}" class="btn btn-sm btn-success m-1">
-            <svg class="bi"><use xlink:href="#pencil-edit"/></svg>
-            Modifier
-          </a>
-          <button type="button" class="btn btn-sm btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-product-id="${product.productId}">
-            <svg class="bi"><use xlink:href="#trash"/></svg>
-            Supprimer
-          </button>
+          <div class="btn-group m-1">
+            <a th:href="@{/admin/product/edit/{productId}(productId=${product.getProductId()})}" class="btn btn-sm btn-outline-secondary">
+              <svg class="bi"><use xlink:href="#pencil-edit"/></svg>
+            </a>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-product-id="${product.productId}">
+              <svg class="bi"><use xlink:href="#trash"/></svg>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>

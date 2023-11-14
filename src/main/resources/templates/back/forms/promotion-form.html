@@ -1,0 +1,22 @@
+<div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Promotion du produit ID#<span th:text="${productId}"></span></h1>
+</div>
+
+<form th:action="${'/admin/promotion/product-id/' + productId}" method="post">
+  <div class="mb-3">
+    <input type="hidden" name="product-id" th:value="${productId}">
+
+    <label for="percentage" class="form-label">Percentage (%)</label>
+    <input type="number" class="form-control" id="percentage" name="percentage" th:value="${promotion != null ? promotion.getDiscountPercentage() : ''}">
+  </div>
+  <div class="mb-3">
+    <label for="start-date" class="form-label">Date début</label>
+    <input type="date" class="form-control" id="start-date" name="start_date" th:value="${promotion != null ? promotion.getStartDate() : ''}">
+  </div>
+  <div class="mb-3">
+    <label for="end-date" class="form-label">Date fin</label>
+    <input type="date" class="form-control" id="end-date" name="end_date" th:value="${promotion != null ? promotion.getEndDate() : ''}">
+  </div>
+  <button type="submit" class="btn btn-success">Enregistrer</button>
+  <a type="button" class="btn btn-danger">Supprimer promotion</a>
+</form>
