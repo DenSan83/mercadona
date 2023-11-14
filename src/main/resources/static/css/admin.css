@@ -46,3 +46,10 @@ html, body {
 .left-border-warning {
     border-left: 0.25rem solid #f6c23e!important;
 }
+
+/* Cards icons */
+.bi-big {
+    width: 2em;
+    height: 2em;
+    color: #00000044;
+}
