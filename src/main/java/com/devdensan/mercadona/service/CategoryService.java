@@ -71,4 +71,25 @@ public class CategoryService {
             return false;
         }
     }
+
+    public int countCategories() {
+        List<Category> categoryList = categoryRepository.findAll();
+        return categoryList.size();
+    }
+
+    public int countEmptyCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        Map<Integer, Integer> articlesCountByCategory = new HashMap<>();
+        Map<Integer, Integer> articlesByCategory = articlesByCategoryId();
+        int emptyCategoriesCount = 0;
+
+        for (Category category : categories) {
+            int articleCount = articlesByCategory.getOrDefault(category.getCategoryId(), 0);
+            if (articleCount == 0) {
+                emptyCategoriesCount++;
+            }
+        }
+
+        return emptyCategoriesCount;
+    }
 }

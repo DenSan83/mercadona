@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class PromotionService {
@@ -68,5 +69,10 @@ public class PromotionService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public int countPromotions() {
+        List<Promotion> promotionList = promotionRepository.findAll();
+        return promotionList.size();
     }
 }

@@ -84,4 +84,9 @@ public class ProductService {
             return false;
         }
     }
+
+    public int countProducts() {
+        List<Product> productList = productRepository.findAll();
+        return productList.size();
+    }
 }

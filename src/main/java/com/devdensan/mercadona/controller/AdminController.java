@@ -4,10 +4,15 @@ import com.devdensan.mercadona.auth.AuthenticationService;
 import com.devdensan.mercadona.model.User;
 import com.devdensan.mercadona.service.CategoryService;
 import com.devdensan.mercadona.service.ProductService;
+import com.devdensan.mercadona.service.PromotionService;
+import com.devdensan.mercadona.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(path = "admin")
@@ -16,11 +21,15 @@ public class AdminController {
     private final AuthenticationService authenticationService;
     private final CategoryService categoryService;
     private final ProductService productService;
+    private final PromotionService promotionService;
+    private final UserService userService;
 
-    public AdminController(AuthenticationService authenticationService, CategoryService categoryService, ProductService productService) {
+    public AdminController(AuthenticationService authenticationService, CategoryService categoryService, ProductService productService, PromotionService promotionService, UserService userService) {
         this.authenticationService = authenticationService;
         this.categoryService = categoryService;
         this.productService = productService;
+        this.promotionService = promotionService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -29,9 +38,29 @@ public class AdminController {
         // User data
         User connectedUser = authenticationService.getAuthenticatedUser();
         model.addAttribute("userName", connectedUser.getUserName());
-
-        // Page data
         model.addAttribute("page", "dashboard");
+
+        // Products
+        Map<String, Integer> products = new HashMap<>();
+        int countProducts = productService.countProducts();
+        int countPromotions = promotionService.countPromotions();
+        products.put("total", countProducts);
+        products.put("withPromo", countPromotions);
+        products.put("withoutPromo", countProducts - countPromotions);
+        model.addAttribute("products", products);
+
+        // Categories
+        Map<String, Integer> categories = new HashMap<>();
+        int countCategories = categoryService.countCategories();
+        int countEmptyCategories = categoryService.countEmptyCategories();
+        categories.put("total", countCategories);
+        categories.put("notFull", countEmptyCategories);
+        categories.put("full", countCategories - countEmptyCategories);
+        model.addAttribute("categories", categories);
+
+        // Users
+        int countUsers = userService.countUsers();
+        model.addAttribute("users", countUsers);
 
         return "back/components/template";
     }

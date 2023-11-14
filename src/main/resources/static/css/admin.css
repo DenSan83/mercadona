@@ -35,3 +35,14 @@ html, body {
 .no-wrap {
     white-space: nowrap;
 }
+
+/* Cards borders */
+.left-border-primary {
+    border-left: 0.25rem solid #4e73df!important;
+}
+.left-border-success {
+    border-left: 0.25rem solid #1cc88a!important;
+}
+.left-border-warning {
+    border-left: 0.25rem solid #f6c23e!important;
+}
