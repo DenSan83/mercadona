@@ -45,7 +45,7 @@ public class AdminController {
 
         // Page data
         model.addAttribute("page", "products");
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.getAllProductsById());
 
         return "back/components/template";
     }

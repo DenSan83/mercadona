@@ -27,6 +27,9 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+    public List<Product> getAllProductsById() {
+        return productRepository.findAllOrderedByProductId();
+    }
 
     public List<Product> getProductsByCategoryId(int categoryId) {
         boolean categoryExists = this.categoryRepository.existsByCategoryId(categoryId);
