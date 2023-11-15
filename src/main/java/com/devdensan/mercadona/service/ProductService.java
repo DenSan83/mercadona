@@ -50,7 +50,7 @@ public class ProductService {
         String description = request.getParameter("description");
         float price = Float.parseFloat(request.getParameter("price"));
 
-        Product p = new Product(productName, description, null, price, cat, null);
+        Product p = new Product(productName, description, "", price, cat, null);
 
         return productRepository.save(p);
     }

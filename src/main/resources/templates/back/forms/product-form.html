@@ -29,11 +29,11 @@
   <div class="mb-3">
     <label for="image" class="form-label">Image</label>
     <th:block th:if="${product == null}">
-      <input type="text" class="form-control" id="image" placeholder="(Ajout des images temporairement désactivée)" disabled>
+      <input type="text" class="form-control" id="image" placeholder="(Ajout d'images temporairement désactivée)" disabled>
     </th:block>
     <th:block th:if="${product != null}">
       <th:block th:if="${product.getImage().isEmpty()}">
-        <input type="text" class="form-control" id="image" placeholder="(Édition des images temporairement désactivée)" disabled>
+        <input type="text" class="form-control" id="image" placeholder="(Édition d'images temporairement désactivée)" disabled>
       </th:block>
       <th:block th:if="${!product.getImage().isEmpty()}">
         <input type="text" class="form-control" id="image" th:value="${product.getImage()}" disabled>
