@@ -3,7 +3,6 @@ package com.devdensan.mercadona.controller;
 import com.devdensan.mercadona.auth.AuthenticationService;
 import com.devdensan.mercadona.model.Product;
 import com.devdensan.mercadona.model.Promotion;
-import com.devdensan.mercadona.model.User;
 import com.devdensan.mercadona.repository.ProductRepository;
 import com.devdensan.mercadona.service.PromotionService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,9 +31,7 @@ public class AdminPromotionController {
 
     @GetMapping("product-id/{productId}")
     public String promotionForm(@PathVariable int productId, Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         // Page data
         model.addAttribute("productId", productId);

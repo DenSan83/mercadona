@@ -2,7 +2,6 @@ package com.devdensan.mercadona.controller;
 
 import com.devdensan.mercadona.auth.AuthenticationService;
 import com.devdensan.mercadona.model.Category;
-import com.devdensan.mercadona.model.User;
 import com.devdensan.mercadona.service.CategoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -26,9 +25,7 @@ public class AdminCategoryController {
 
     @GetMapping("new")
     public String categoryForm(Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         // Page data
         model.addAttribute("page", "category-form");
@@ -63,6 +60,7 @@ public class AdminCategoryController {
 
     @GetMapping("/edit/{categoryId}")
     public String editCategory(@PathVariable int categoryId, Model model) {
+        authenticationService.loadConnectedUser(model);
         Category category = service.getCategoryById(categoryId);
         model.addAttribute("category", category);
 

@@ -30,9 +30,7 @@ public class AdminUserController {
 
     @GetMapping("new")
     public String userForm(Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         // Page data
         model.addAttribute("page", "user-form");
@@ -66,9 +64,7 @@ public class AdminUserController {
 
     @GetMapping("/edit/{userId}")
     public String editUser(@PathVariable int userId, Model model, RedirectAttributes redirectAttributes) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         User user = service.getUserById(userId);
         if (user == null) {

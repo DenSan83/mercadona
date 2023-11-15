@@ -3,7 +3,6 @@ package com.devdensan.mercadona.controller;
 import com.devdensan.mercadona.auth.AuthenticationService;
 import com.devdensan.mercadona.model.Category;
 import com.devdensan.mercadona.model.Product;
-import com.devdensan.mercadona.model.User;
 import com.devdensan.mercadona.service.CategoryService;
 import com.devdensan.mercadona.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,9 +29,7 @@ public class AdminProductController {
 
     @GetMapping("new")
     public String productForm(Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         // Page data
         model.addAttribute("page", "product-form");
@@ -87,6 +84,8 @@ public class AdminProductController {
 
     @GetMapping("/edit/{productId}")
     public String editProduct(@PathVariable int productId, Model model) {
+        authenticationService.loadConnectedUser(model);
+
         Product product = service.getProductById(productId);
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.getAllCategoriesById());

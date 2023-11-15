@@ -1,7 +1,6 @@
 package com.devdensan.mercadona.controller;
 
 import com.devdensan.mercadona.auth.AuthenticationService;
-import com.devdensan.mercadona.model.User;
 import com.devdensan.mercadona.service.CategoryService;
 import com.devdensan.mercadona.service.ProductService;
 import com.devdensan.mercadona.service.PromotionService;
@@ -35,10 +34,7 @@ public class AdminController {
     @GetMapping
     @RequestMapping(value = { "", "/" })
     public String dashboard(Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
-        model.addAttribute("page", "dashboard");
+        authenticationService.loadConnectedUser(model);
 
         // Products
         Map<String, Integer> products = new HashMap<>();
@@ -62,15 +58,14 @@ public class AdminController {
         int countUsers = userService.countUsers();
         model.addAttribute("users", countUsers);
 
+        model.addAttribute("page", "dashboard");
         return "back/components/template";
     }
 
     @GetMapping
     @RequestMapping(value = { "products", "products/" })
     public String products(Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         // Page data
         model.addAttribute("page", "products");
@@ -82,9 +77,7 @@ public class AdminController {
     @GetMapping
     @RequestMapping(value = { "categories", "categories/" })
     public String categories(Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         // Page data
         model.addAttribute("page", "categories");
@@ -97,9 +90,7 @@ public class AdminController {
     @GetMapping
     @RequestMapping(value = { "users", "users/" })
     public String users(Model model) {
-        // User data
-        User connectedUser = authenticationService.getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        authenticationService.loadConnectedUser(model);
 
         // Page data
         model.addAttribute("page", "users");

@@ -1,5 +1,6 @@
 package com.devdensan.mercadona.auth;
 
+import org.springframework.ui.Model;
 import com.devdensan.mercadona.model.Role;
 import com.devdensan.mercadona.model.User;
 import com.devdensan.mercadona.repository.RoleRepository;
@@ -38,5 +39,10 @@ public class AuthenticationService {
             return userRepository.findByUserName(username);
         }
         return null;
+    }
+
+    public void loadConnectedUser(Model model) {
+        User connectedUser = getAuthenticatedUser();
+        model.addAttribute("userName", connectedUser.getUserName());
     }
 }
