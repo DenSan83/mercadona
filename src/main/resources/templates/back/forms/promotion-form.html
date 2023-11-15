@@ -18,5 +18,31 @@
     <input type="date" class="form-control" id="end-date" name="end_date" th:value="${promotion != null ? promotion.getEndDate() : ''}">
   </div>
   <button type="submit" class="btn btn-success">Enregistrer</button>
-  <a type="button" class="btn btn-danger">Supprimer promotion</a>
+  <th:block th:if="${promotion != null}">
+    <a data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger">Supprimer promotion</a>
+  </th:block>
 </form>
+
+<!--Modal-->
+<th:block th:if="${promotion != null}">
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Supprimer promotion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes-vous sûr de vouloir supprimer cette promotion ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <form th:action="@{/admin/promotion/delete}" method="post">
+            <input type="hidden" name="product-id" th:value="${productId}">
+            <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Supprimer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>

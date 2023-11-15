@@ -9,10 +9,7 @@ import com.devdensan.mercadona.service.PromotionService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -52,7 +49,7 @@ public class AdminPromotionController {
     public String promotionEdit(@PathVariable int productId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         String percentageParam = request.getParameter("percentage");
         String startDateParam = request.getParameter("start_date");
-        String endDateParam = request.getParameter("start_date");
+        String endDateParam = request.getParameter("end_date");
 
         Map<String, String> message = new HashMap<>();
         if (percentageParam.isEmpty() && startDateParam.isEmpty() && endDateParam.isEmpty()) {
@@ -131,6 +128,20 @@ public class AdminPromotionController {
         return "redirect:/admin/products";
     }
 
+    @PostMapping("delete")
+    public String promotionDelete(@RequestParam("product-id") int productId, RedirectAttributes redirectAttributes) {
+        Map<String, String> message = new HashMap<>();
+        boolean deletedPromo = service.deletePromotionFromProductId(productId);
 
+        if (deletedPromo) {
+            message.put("type", "success");
+            message.put("text", "Le produit avec ID# "+ productId +" n'a aucune promotion");
+        } else {
+            message.put("type", "danger");
+            message.put("text", "Erreur lors de la suppresion de la promotion");
+        }
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/admin/products";
+    }
 
 }
