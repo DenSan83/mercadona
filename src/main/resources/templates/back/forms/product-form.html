@@ -23,7 +23,18 @@
   </div>
   <div class="mb-3">
     <label for="image" class="form-label">Image</label>
-    <input type="text" class="form-control" id="image" placeholder="(Édition des images temporairement désactivée)" disabled>
+    <th:block th:if="${product == null}">
+      <input type="text" class="form-control" id="image" placeholder="(Ajout des images temporairement désactivée)" disabled>
+    </th:block>
+    <th:block th:if="${product != null}">
+      <th:block th:if="${product.getImage().isEmpty()}">
+        <input type="text" class="form-control" id="image" placeholder="(Édition des images temporairement désactivée)" disabled>
+      </th:block>
+      <th:block th:if="${!product.getImage().isEmpty()}">
+        <input type="text" class="form-control" id="image" th:value="${product.getImage()}" disabled>
+      </th:block>
+    </th:block>
+
   </div>
   <div class="mb-3">
     <label for="price" class="form-label">Prix</label>
