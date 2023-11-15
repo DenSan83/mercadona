@@ -1,5 +1,10 @@
 <div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Nouvelle Catégorie</h1>
+    <th:block th:if="${category == null}">
+        <h1 class="h2">Nouvelle Catégorie</h1>
+    </th:block>
+    <th:block th:if="${category != null}">
+        <h1 class="h2" th:text="${'Modifier catégorie ID#' + category.getCategoryId()}"></h1>
+    </th:block>
 </div>
 
 <form th:action="${category == null ? '/admin/category/new' : '/admin/category/edit/' + category.categoryId}" method="post">
