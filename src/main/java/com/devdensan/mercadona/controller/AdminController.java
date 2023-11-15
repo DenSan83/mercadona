@@ -103,6 +103,7 @@ public class AdminController {
 
         // Page data
         model.addAttribute("page", "users");
+        model.addAttribute("users", userService.getAllUsersById());
 
         return "back/components/template";
     }

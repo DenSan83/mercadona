@@ -1,34 +1,63 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Utilisateurs</h1>
+  <div class="btn-toolbar mb-2 mb-md-0 ms-3">
+    <a class="btn btn-sm btn-secondary" th:href="@{/admin/user/new}">
+      <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+      Ajouter
+    </a>
+  </div>
 </div>
 
 <div class="table-responsive small">
   <table class="table table-striped table-sm">
     <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Header</th>
-      <th scope="col">Header</th>
-      <th scope="col">Header</th>
-      <th scope="col">Header</th>
-    </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Rôle</th>
+        <th scope="col">Email</th>
+        <th scope="col">Modifier / Supprimer</th>
+      </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1,001</td>
-      <td>random</td>
-      <td>data</td>
-      <td>placeholder</td>
-      <td>text</td>
-    </tr>
-    <tr>
-      <td>1,002</td>
-      <td>placeholder</td>
-      <td>irrelevant</td>
-      <td>visual</td>
-      <td>layout</td>
-    </tr>
-
+      <tr th:each="user : ${users}">
+        <td th:text="${user.userId}"></td>
+        <td th:text="${user.userName}"></td>
+        <td th:text="${user.role.roleName}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+          <div class="btn-group m-1">
+            <a th:href="@{/admin/user/edit/{userId}(userId=${user.getUserId()})}" class="btn btn-sm btn-outline-secondary">
+              <svg class="bi"><use xlink:href="#pencil-edit"/></svg>
+            </a>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-user-id="${user.getUserId()}">
+              <svg class="bi"><use xlink:href="#trash"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Supprimer utilisateur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <form th:action="@{/admin/user/delete}" method="post">
+          <input type="hidden" name="user-id" id="userIdInput">
+          <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Supprimer</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

@@ -12,7 +12,7 @@ if (toastElList.length > 0) {
 // Category delete modal
 const categoryIdInput = document.getElementById('categoryIdInput');
 const deleteModal = document.getElementById('deleteModal');
-if (deleteModal !== null) {
+if (deleteModal !== null && categoryIdInput != null) {
     deleteModal.addEventListener('show.bs.modal', event => {
         const button = event.relatedTarget;
         categoryIdInput.value = button.getAttribute('data-category-id');
@@ -24,7 +24,7 @@ if (deleteModal !== null) {
 
 // Product delete modal
 const productIdInput = document.getElementById('productIdInput');
-if (deleteModal !== null) {
+if (deleteModal !== null && productIdInput != null) {
     deleteModal.addEventListener('show.bs.modal', event => {
         const button = event.relatedTarget;
         productIdInput.value = button.getAttribute('data-product-id');
@@ -62,3 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// User delete modal
+const userIdInput = document.getElementById('userIdInput');
+if (deleteModal !== null && userIdInput != null) {
+    deleteModal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        userIdInput.value = button.getAttribute('data-user-id');
+    });
+    deleteModal.addEventListener('hide.bs.modal', () => {
+        userIdInput.value = '';
+    });
+}

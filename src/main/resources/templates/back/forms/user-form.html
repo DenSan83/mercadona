@@ -1,0 +1,44 @@
+<div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Nouveau Utilisateur</h1>
+</div>
+
+<form th:action="${user == null ? '/admin/user/new' : '/admin/user/edit/' + user.getUserId()}" method="post">
+  <div class="mb-3">
+    <label for="username" class="form-label">Nom d'utilisateur</label>
+    <input type="text" class="form-control" id="username" name="username" th:value="${user != null ? user.getUserName() : ''}" required>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">email</label>
+    <input type="email" class="form-control" id="email" name="email" th:value="${user != null ? user.getEmail() : ''}" >
+  </div>
+  <div class="mb-3">
+    <label for="role" class="form-label">Rôle</label>
+    <!-- If user == null -->
+    <select th:if="${user == null}" class="form-select" name="role" id="role" required>
+      <option th:each="role, i : ${roles}"
+              th:text="${role.getRoleName()}"
+              th:value="${role.getRoleId()}"
+              th:selected="${i.index == 0}"></option>
+    </select>
+
+    <!-- If user != null -->
+    <select th:if="${user != null}" class="form-select" name="role" id="role" required>
+      <option th:each="role : ${roles}"
+              th:text="${role.getRoleName()}"
+              th:selected="${role.getRoleId() == user.getRole().getRoleId()}"
+              th:value="${role.getRoleId()}"></option>
+    </select>
+
+  </div>
+  <th:block th:if="${user == connectedUser}">
+    <div class="mb-3">
+      <label for="password" class="form-label">Mot de passe</label>
+      <input type="password" class="form-control" id="password" name="password" th:required="${user == null}">
+    </div>
+    <div class="mb-3">
+      <label for="password2" class="form-label">Répetez le mot de passe</label>
+      <input type="password" class="form-control" id="password2" name="password2" th:required="${user == null}">
+    </div>
+  </th:block>
+  <button type="submit" class="btn btn-success">Enregistrer</button>
+</form>
