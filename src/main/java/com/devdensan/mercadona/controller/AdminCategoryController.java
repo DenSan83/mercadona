@@ -37,17 +37,22 @@ public class AdminCategoryController {
     public String categoryAdd(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         String categoryName = request.getParameter("category-name");
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
         if (categoryName.equals("")) {
-            message.put("type", "danger");
             message.put("text", "Erreur : veuillez renseigner un nom de catégorie");
 
             redirectAttributes.addFlashAttribute("message", message);
-            return "redirect:/admin/categories";
+            return "redirect:/admin/category/new";
         }
 
-        Category cat = service.newCategory(request);
+        if (service.existsByName(categoryName)) {
+            message.put("text", "Une catégorie existe déjà avec ce nom");
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/admin/category/new";
+        }
+
+        Category cat = service.newCategory(request, redirectAttributes);
         if (cat == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur sur l'ajout de la catégorie");
         } else {
             message.put("type", "success");
@@ -70,11 +75,17 @@ public class AdminCategoryController {
 
     @PostMapping("/edit/{categoryId}")
     public String saveEditedCategory(@PathVariable int categoryId, @RequestParam("category-name") String newName, RedirectAttributes redirectAttributes) {
-        Category editedCategory = service.editCategory(categoryId, newName);
-
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
+
+        if (service.existsByName(newName)) {
+            message.put("text", "Une catégorie existe déjà avec ce nom");
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/admin/category/edit/" + categoryId;
+        }
+
+        Category editedCategory = service.editCategory(categoryId, newName);
         if (editedCategory == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur sur la modification de la catégorie");
         } else {
             message.put("type", "success");
@@ -88,11 +99,11 @@ public class AdminCategoryController {
     @PostMapping("/delete")
     public String deleteCategory(@RequestParam("category-id") int categoryId, RedirectAttributes redirectAttributes) {
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
 
         // Verify if exists
         boolean categoryExists = service.existsByCategoryId(categoryId);
         if (!categoryExists) {
-            message.put("type", "danger");
             message.put("text", "Catégorie non trouvée ou inéxistante.");
 
             redirectAttributes.addFlashAttribute("message", message);
@@ -104,7 +115,6 @@ public class AdminCategoryController {
         Integer categoryCount = categories.get(categoryId);
 
         if (categoryCount != 0) {
-            message.put("type", "danger");
             message.put("text", "La catégorie a encore des produits. Veuillez les retirer avant de supprimer la catégorie.");
         } else {
 
@@ -113,7 +123,6 @@ public class AdminCategoryController {
                 message.put("type", "success");
                 message.put("text", "Catégorie supprimée correctement");
             } else {
-                message.put("type", "danger");
                 message.put("text", "Erreur lors de la suppression de la catégorie");
             }
         }
@@ -121,7 +130,5 @@ public class AdminCategoryController {
         redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/admin/categories";
     }
-
-
 
 }

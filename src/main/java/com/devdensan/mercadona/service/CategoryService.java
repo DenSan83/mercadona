@@ -6,6 +6,7 @@ import com.devdensan.mercadona.repository.CategoryRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,10 @@ public class CategoryService {
         return categoryRepository.existsByCategoryId(categoryId);
     }
 
+    public boolean existsByName(String categoryName) {
+        return categoryRepository.existsByName(categoryName);
+    }
+
     public Map<Integer, Integer> articlesByCategoryId() {
         List<Category> categories = categoryRepository.findAll();
         Map<Integer, Integer> articlesCountByCategory = new HashMap<>();
@@ -47,11 +52,8 @@ public class CategoryService {
         return articlesCountByCategory;
     }
 
-    public Category newCategory(HttpServletRequest request) {
+    public Category newCategory(HttpServletRequest request,  RedirectAttributes redirectAttributes) {
         String categoryName = request.getParameter("category-name");
-        if (categoryRepository.existsByName(categoryName)) {
-            return null;
-        }
 
         var newCategory = new Category(categoryName);
         return categoryRepository.save(newCategory);
@@ -60,9 +62,6 @@ public class CategoryService {
     public Category editCategory(int categoryId, String newName) {
         Category category = categoryRepository.findById(categoryId).orElse(null);
         if (category == null) {
-            return null;
-        }
-        if (categoryRepository.existsByName(newName)) {
             return null;
         }
 
