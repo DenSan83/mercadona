@@ -61,7 +61,6 @@ public class AdminUserController {
         return "redirect:/admin/users";
     }
 
-
     @GetMapping("/edit/{userId}")
     public String editUser(@PathVariable int userId, Model model, RedirectAttributes redirectAttributes) {
         authenticationService.loadConnectedUser(model);

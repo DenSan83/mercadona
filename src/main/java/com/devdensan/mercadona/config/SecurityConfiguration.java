@@ -25,12 +25,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .csrf().disable()
             .authorizeHttpRequests()
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().permitAll()
             .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login").permitAll()
                 .successHandler((request, response, authentication) -> {
                     response.sendRedirect("/admin");
                 })

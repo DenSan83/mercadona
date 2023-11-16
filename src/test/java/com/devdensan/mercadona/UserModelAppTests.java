@@ -2,7 +2,11 @@ package com.devdensan.mercadona;
 
 import com.devdensan.mercadona.model.Role;
 import com.devdensan.mercadona.model.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,7 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
 class UserModelAppTests {
+
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
+	}
 
 	@Test
 	void createRole() {
@@ -43,6 +53,5 @@ class UserModelAppTests {
 		String expected = "User{userId=0, userName='main_user', password='123456', role=Role{roleId=0, roleName='ADMIN'}, email='123456@devdensan.com'}";
 		assertEquals(expected, result);
 	}
-
 
 }

@@ -43,6 +43,10 @@ public class AuthenticationService {
 
     public void loadConnectedUser(Model model) {
         User connectedUser = getAuthenticatedUser();
-        model.addAttribute("userName", connectedUser.getUserName());
+        if (connectedUser != null) {
+            model.addAttribute("userName", connectedUser.getUserName());
+        } else {
+            model.addAttribute("userName", null);
+        }
     }
 }

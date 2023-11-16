@@ -114,7 +114,7 @@ public class AdminCategoryController {
         Map<Integer, Integer> categories =  service.articlesByCategoryId();
         Integer categoryCount = categories.get(categoryId);
 
-        if (categoryCount != 0) {
+        if (categoryCount != null && categoryCount != 0) {
             message.put("text", "La catégorie a encore des produits. Veuillez les retirer avant de supprimer la catégorie.");
         } else {
 
