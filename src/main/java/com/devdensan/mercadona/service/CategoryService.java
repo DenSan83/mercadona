@@ -49,8 +49,11 @@ public class CategoryService {
 
     public Category newCategory(HttpServletRequest request) {
         String categoryName = request.getParameter("category-name");
-        var newCategory = new Category(categoryName);
+        if (categoryRepository.existsByName(categoryName)) {
+            return null;
+        }
 
+        var newCategory = new Category(categoryName);
         return categoryRepository.save(newCategory);
     }
 
