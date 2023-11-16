@@ -90,8 +90,8 @@ public class AdminUserController {
 
         // Verify existant
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
         if (user == null) {
-            message.put("type", "danger");
             message.put("text", "Utilisateur inéxistant.");
             redirectAttributes.addFlashAttribute("message", message);
 
@@ -100,7 +100,7 @@ public class AdminUserController {
 
         // Verifying logic
         if (!validateUserInput(false, request, redirectAttributes, message)) {
-            return "redirect:/admin/user/new";
+            return "redirect:/admin/user/edit/" + userId;
         }
 
         // User edition
@@ -111,7 +111,6 @@ public class AdminUserController {
         User editedUser = service.editUser(userId, username, email, roleId, password);
 
         if (editedUser == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur lors de l'enregistrement de l'utilisateur");
         } else {
             message.put("type", "success");
@@ -125,11 +124,11 @@ public class AdminUserController {
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("user-id") int userId, RedirectAttributes redirectAttributes) {
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
 
         // Verify if exists
         User user = service.getUserById(userId);
         if (user == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur : utilisateur non trouvé ou inéxistant.");
 
             redirectAttributes.addFlashAttribute("message", message);
@@ -139,7 +138,6 @@ public class AdminUserController {
         // If self: block
         User connectedUser = authenticationService.getAuthenticatedUser();
         if (connectedUser == user) {
-            message.put("type", "danger");
             message.put("text", "Erreur : l'utilisateur à supprimer est encore connecté.");
 
             redirectAttributes.addFlashAttribute("message", message);
@@ -151,7 +149,6 @@ public class AdminUserController {
             message.put("type", "success");
             message.put("text", "Utilisateur supprimé correctement.");
         } else {
-            message.put("type", "danger");
             message.put("text", "Erreur lors de la suppression de l'utilisateur.");
         }
 
@@ -169,13 +166,11 @@ public class AdminUserController {
         // Verify user
         String username = request.getParameter("username");
         if (username.isEmpty()) {
-            message.put("type", "danger");
             message.put("text", "Le nom d'utilisateur ne peut pas être vide.");
             redirectAttributes.addFlashAttribute("message", message);
             return false;
         }
         if (isNew && service.userExists(username)) {
-            message.put("type", "danger");
             message.put("text", "Le nom d'utilisateur existe déjà.");
             redirectAttributes.addFlashAttribute("message", message);
             return false;
@@ -184,7 +179,6 @@ public class AdminUserController {
         // Verify if email is valid
         String email = request.getParameter("email");
         if (!email.isEmpty() && !isValidEmail(email)) {
-            message.put("type", "danger");
             message.put("text", "Format d'email incorrect.");
             redirectAttributes.addFlashAttribute("message", message);
             return false;
@@ -198,7 +192,6 @@ public class AdminUserController {
                 .findFirst()
                 .orElse(null);
         if (selectedRole == null) {
-            message.put("type", "danger");
             message.put("text", "Le rôle sélectionné n'est pas valide.");
             redirectAttributes.addFlashAttribute("message", message);
             return false;
@@ -207,7 +200,6 @@ public class AdminUserController {
         // Verify passwords when not empty
         String password = request.getParameter("password");
         if (password != null && !password.equals(request.getParameter("password2"))) {
-            message.put("type", "danger");
             message.put("text", "Les mots de passe ne correspondent pas.");
             redirectAttributes.addFlashAttribute("message", message);
             return false;
