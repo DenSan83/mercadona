@@ -1,5 +1,5 @@
 <header class="d-flex flex-wrap align-items-center justify-content-between p-3 border-bottom">
-  <div class="col-md-8 mb-2 mb-md-0">
+  <div class="col-md-8 d-flex mb-md-0">
     <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
       <img th:src="@{/images/app/logo-mercadona.svg}" alt="Logo">
     </a>
@@ -19,6 +19,11 @@
     </div>
   </div>
   <div class="col-md-4 text-end" th:if="${!userLoggedIn}">
-    <a th:href="@{/login}" type="button" class="btn btn-outline-secondary">Accès Administrateur</a>
+    <a th:href="@{/login}" type="button" class="btn btn-outline-secondary d-md-block d-none">Accès Administrateur</a>
+    <a th:href="@{/login}" type="button" class="btn btn-outline-secondary btn-sm d-block d-md-none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+      </svg>
+    </a>
   </div>
 </header>
