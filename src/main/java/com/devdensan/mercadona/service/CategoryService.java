@@ -56,10 +56,15 @@ public class CategoryService {
 
     public Category editCategory(int categoryId, String newName) {
         Category category = categoryRepository.findById(categoryId).orElse(null);
-        if (category != null) {
-            category.setCategoryName(newName);
-            categoryRepository.save(category);
+        if (category == null) {
+            return null;
         }
+        if (categoryRepository.existsByName(newName)) {
+            return null;
+        }
+
+        category.setCategoryName(newName);
+        categoryRepository.save(category);
         return category;
     }
 
