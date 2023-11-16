@@ -18,7 +18,7 @@
       </ul>
     </div>
   </div>
-  <div class="col-md-4 text-end" th:if="${!userLoggedIn}">
+  <div class="col-md-4 d-flex justify-content-end" th:if="${!userLoggedIn}">
     <a th:href="@{/login}" type="button" class="btn btn-outline-secondary d-md-block d-none">Accès Administrateur</a>
     <a th:href="@{/login}" type="button" class="btn btn-outline-secondary btn-sm d-block d-md-none">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
