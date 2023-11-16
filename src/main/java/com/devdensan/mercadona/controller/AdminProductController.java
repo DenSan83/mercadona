@@ -43,10 +43,9 @@ public class AdminProductController {
         int categoryId = Integer.parseInt(request.getParameter("category"));
         boolean categoryExists = categoryService.existsByCategoryId(categoryId);
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
         if (!categoryExists) {
-            message.put("type", "danger");
             message.put("text", "Erreur : catégorie inéxistante");
-
             return "redirect:/admin/products";
         }
 
@@ -62,16 +61,13 @@ public class AdminProductController {
         }
 
         if (newName.equals("") || description.equals("") || price == 0) {
-            message.put("type", "danger");
             message.put("text", "Erreur : Veuillez remplir tous les champs");
-
             redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/admin/products";
         }
 
         Product product = service.newProduct(request);
         if (product == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur sur l'ajout du produit");
         } else {
             message.put("type", "success");
@@ -98,12 +94,11 @@ public class AdminProductController {
     public String saveEditedProduct(@PathVariable int productId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         // Verify if category exists
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
         int categoryId = Integer.parseInt(request.getParameter("category"));
         boolean categoryExists = categoryService.existsByCategoryId(categoryId);
         if (!categoryExists) {
-            message.put("type", "danger");
             message.put("text", "Erreur : catégorie inéxistante");
-
             redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/admin/products";
         }
@@ -111,7 +106,6 @@ public class AdminProductController {
         // Verify if product exists
         Product product = service.getProductById(productId);
         if (product == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur : produit inéxistant");
 
             redirectAttributes.addFlashAttribute("message", message);
@@ -130,9 +124,7 @@ public class AdminProductController {
         }
 
         if (newName.equals("") || description.equals("") || price == 0) {
-            message.put("type", "danger");
             message.put("text", "Erreur : Veuillez remplir tous les champs");
-
             redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/admin/products";
         }
@@ -140,27 +132,25 @@ public class AdminProductController {
         // Product edition
         Product editedProduct = service.editProduct(productId, newName, description, category, price);
         if (editedProduct == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur sur la modification du produit");
         } else {
             message.put("type", "success");
             message.put("text", "Produit modifiée correctement");
         }
-        redirectAttributes.addFlashAttribute("message", message);
 
+        redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/admin/products";
     }
 
     @PostMapping("/delete")
     public String deleteProduct(@RequestParam("product-id") int productId, RedirectAttributes redirectAttributes) {
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
 
         // Verify if exists
         boolean productExists = service.existsByProductId(productId);
         if (!productExists) {
-            message.put("type", "danger");
             message.put("text", "Erreur : produit non trouvé ou inéxistant.");
-
             redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/admin/products";
         }
@@ -170,7 +160,6 @@ public class AdminProductController {
             message.put("type", "success");
             message.put("text", "Produit supprimé correctement.");
         } else {
-            message.put("type", "danger");
             message.put("text", "Erreur lors de la suppression du produit.");
         }
 
