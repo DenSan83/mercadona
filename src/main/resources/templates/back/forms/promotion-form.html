@@ -6,7 +6,7 @@
   <div class="mb-3">
     <input type="hidden" name="product-id" th:value="${productId}">
 
-    <label for="percentage" class="form-label">Percentage (%)</label>
+    <label for="percentage" class="form-label">Pourcentage (%)</label>
     <input type="number" class="form-control" id="percentage" name="percentage" th:value="${promotion != null ? promotion.getDiscountPercentage() : ''}">
   </div>
   <div class="mb-3">
