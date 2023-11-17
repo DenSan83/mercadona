@@ -38,6 +38,10 @@ public class UserService {
         return userRepository.existsByUserName(username);
     }
 
+    public boolean userExistsNotId(String username, Integer userId) {
+        return userRepository.existsByUserNameAndUserIdNot(username, userId);
+    }
+
     public User newUser(HttpServletRequest request) {
         Role role = roleRepository.findById(Integer.valueOf(request.getParameter("role"))).orElse(null);
         if (role == null) {

@@ -12,6 +12,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUserName(String userName);
 
     boolean existsByUserName(String username);
+    boolean existsByUserNameAndUserIdNot(String username, Integer userId);
     @Query("SELECT u FROM User u ORDER BY u.userId")
     List<User> findAllByUserId();
 }

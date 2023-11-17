@@ -42,16 +42,16 @@ public class AdminUserController {
     @PostMapping("new")
     public String userAdd(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         Map<String, String> message = new HashMap<>();
+        message.put("type", "danger");
 
         // Verifying logic
-        if (!validateUserInput(true, request, redirectAttributes, message)) {
+        if (!validateUserInput(null, request, redirectAttributes, message)) {
             return "redirect:/admin/user/new";
         }
 
         // Create new user
         User user = service.newUser(request);
         if (user == null) {
-            message.put("type", "danger");
             message.put("text", "Erreur lors de l'enregistrement de l'utilisateur");
         } else {
             message.put("type", "success");
@@ -98,7 +98,7 @@ public class AdminUserController {
         }
 
         // Verifying logic
-        if (!validateUserInput(false, request, redirectAttributes, message)) {
+        if (!validateUserInput(userId, request, redirectAttributes, message)) {
             return "redirect:/admin/user/edit/" + userId;
         }
 
@@ -161,7 +161,7 @@ public class AdminUserController {
         return email.matches(emailRegex);
     }
 
-    private boolean validateUserInput(boolean isNew, HttpServletRequest request, RedirectAttributes redirectAttributes, Map<String, String> message) {
+    private boolean validateUserInput(Integer userId, HttpServletRequest request, RedirectAttributes redirectAttributes, Map<String, String> message) {
         // Verify user
         String username = request.getParameter("username");
         if (username.isEmpty()) {
@@ -169,10 +169,18 @@ public class AdminUserController {
             redirectAttributes.addFlashAttribute("message", message);
             return false;
         }
-        if (isNew && service.userExists(username)) {
+
+        if (userId == null && service.userExists(username)) {
             message.put("text", "Le nom d'utilisateur existe déjà.");
             redirectAttributes.addFlashAttribute("message", message);
             return false;
+        }
+        if (userId != null) {
+            if (service.userExistsNotId(username, userId)) {
+                message.put("text", "Le nom d'utilisateur existe déjà.");
+                redirectAttributes.addFlashAttribute("message", message);
+                return false;
+            }
         }
 
         // Verify if email is valid
